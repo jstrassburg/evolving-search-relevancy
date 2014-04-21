@@ -52,3 +52,8 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# Intellij
+.idea/workspace.xml
+.idea/tasks.xml
+out/
+
