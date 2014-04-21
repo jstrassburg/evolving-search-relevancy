@@ -11,6 +11,9 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+import array
+import random
+from deap import creator, base, tools, algorithms
 
 
 class Program:
@@ -19,8 +22,30 @@ class Program:
 
     @staticmethod
     def main():
-        pass
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", array.array, typecode='b', fitness=creator.FitnessMax)
 
+        evalonemax = lambda individual: sum(individual)
+
+        toolbox = base.Toolbox()
+        toolbox.register("attr_bool", random.randint, 0, 1)
+        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
+        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        toolbox.register("evaluate", evalonemax)
+        toolbox.register("mate", tools.cxTwoPoint)
+        toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
+        toolbox.register("select", tools.selTournament, tournsize=3)
+
+        population = toolbox.population(n=300)
+
+        generations = 40
+        for generation in range(generations):
+            offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
+            fits = toolbox.map(toolbox.evaluate, offspring)
+            for fit, ind in zip(fits, offspring):
+                ind.fitness.values = fit
+            population = offspring
+        print(population)
 
 if __name__ == "__main__":
     Program.main()
