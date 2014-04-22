@@ -43,9 +43,10 @@ class Program:
             offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
             fits = toolbox.map(toolbox.evaluate, offspring)
             for fit, ind in zip(fits, offspring):
-                ind.fitness.values = fit
+                ind.fitness.values = (fit,)
             population = offspring
-        print(population)
+
+        print(sum(map(sum, population)))
 
 if __name__ == "__main__":
     Program.main()
