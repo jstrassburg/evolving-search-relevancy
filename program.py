@@ -11,9 +11,12 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-import array
 import random
 from deap import creator, base, tools, algorithms
+
+
+def evalonemax(individual):
+    return sum(individual),
 
 
 class Program:
@@ -23,14 +26,13 @@ class Program:
     @staticmethod
     def main():
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-        creator.create("Individual", array.array, typecode='b', fitness=creator.FitnessMax)
-
-        evalonemax = lambda individual: sum(individual)
+        creator.create("Individual", list, fitness=creator.FitnessMax)
 
         toolbox = base.Toolbox()
         toolbox.register("attr_bool", random.randint, 0, 1)
         toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
         toolbox.register("evaluate", evalonemax)
         toolbox.register("mate", tools.cxTwoPoint)
         toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
@@ -38,15 +40,14 @@ class Program:
 
         population = toolbox.population(n=300)
 
-        generations = 40
-        for generation in range(generations):
-            offspring = algorithms.varAnd(population, toolbox, cxpb=0.5, mutpb=0.1)
-            fits = toolbox.map(toolbox.evaluate, offspring)
-            for fit, ind in zip(fits, offspring):
-                ind.fitness.values = (fit,)
-            population = offspring
+        hof = tools.HallOfFame(maxsize=1)
+        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=100, halloffame=hof)
 
-        print(sum(map(sum, population)))
+        print final_population
+        print hof
+        print hof[0]
+        print hof[0].fitness
+
 
 if __name__ == "__main__":
     Program.main()
