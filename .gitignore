@@ -57,3 +57,6 @@ docs/_build/
 .idea/tasks.xml
 out/
 
+# Solr
+dependencies/solr-4.7.2/evolverInstance/logs/solr.log
+dependencies/solr-4.7.2/evolverInstance/solr/productsCollection/data/

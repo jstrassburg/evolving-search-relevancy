@@ -1,3 +1,3 @@
 @echo off
-cd .\solr-4.7.2\evolverInstance
+cd .dependencies\solr-4.7.2\evolverInstance
 java -jar start.jar
