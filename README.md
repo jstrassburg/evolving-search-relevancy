@@ -7,11 +7,13 @@ Getting Started
 ===============
 * Clone this repo
 * Run the start_solr script to start Solr
-* Run solrimport.py to import the dataset to your Solr instance
+* Run the following to import the dataset
+
+        $ cd dataset
+        $ curl 'http://localhost:8983/solr/productsCollection/update/json?commit=true' --data-binary @restaurants.json -H 'Content-type:application/json'
 
 References
 ==========
-* Data set - [Abbott Vascular Product Inventory](http://www.abbottvascular.com/us/product-catalogs.html)
 * Distributed Evolutionary Algorithms in Python - [DEAP documentation](http://deap.gel.ulaval.ca/doc/default/index.html)
 * Genetic Algorithm in Adaptive Web Search - [wordpress.com blog](http://mahbub.wordpress.com/2007/04/11/genetic-algorithm-in-adaptive-web-search/)
 * Measuring Search Relevance - [eBay Tech Blog](http://www.ebaytechblog.com/2010/11/10/measuring-search-relevance/#.U16CjvldVJM)

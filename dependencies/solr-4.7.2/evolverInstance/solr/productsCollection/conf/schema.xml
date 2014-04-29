@@ -120,14 +120,13 @@
      required, it is highly recommended. A <uniqueKey> is present in almost all Solr 
      installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id".
    -->   
-   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
-        
-   <field name="businessunit" type="text_ws" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="division" type="text_ws" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="family" type="text_en" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="product" type="text_en_splitting_tight" indexed="true" stored="true" multiValued="false"/>
-   <field name="productdescription" type="text_en" indexed="true" stored="true" multiValued="false"/>
-   <field name="barcode" type="text_en_splitting_tight" indexed="true" stored="true" multiValued="false"/>
+   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" omitNorms="true" />
+   <field name="name" type="text_en" indexed="true" stored="true" required="true" multiValued="false" omitNorms="true"/>
+   <field name="description" type="text_en" indexed="true" stored="true" multiValued="false" omitNorms="true"/>
+
+   <!-- This field stores term|interactions -->
+   <!-- red lobster|10 -->
+   <field name="searchTermInteractions" type="lowercase" indexed="true" stored="true" multiValued="true"/>
 
    <!-- Dynamic field definitions allow using convention over configuration
        for fields via the specification of patterns to match field names. 
