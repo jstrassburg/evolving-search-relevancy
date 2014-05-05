@@ -10,17 +10,13 @@
 #   distributed under the License is distributed on an "AS IS" BASIS,
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
-#   limitations under the License.
-import solr
+from unittest import TestCase
+from SolrRepository import SolrRepository
 
 
-class SolrRepository:
-    solr_connection = solr.SolrConnection('http://localhost:8983/solr/restaurantsCollection')
-
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def search(q, name_boost, description_boost):
-        qf = "name^{0} description^{1}".format(name_boost, description_boost)
-        return SolrRepository.solr_connection.query(q, start=0, rows=100, qf=qf, defType="dismax")
+class TestSolrRepository(TestCase):
+    def test_search(self):
+        results = SolrRepository.search("crab shack", 10, 2)
+        self.assertEqual(len(results), 1, "Expected one result")
+        result = list(results)[0]
+        self.assertEqual(result["name"], "Joe's Crab Shack")
