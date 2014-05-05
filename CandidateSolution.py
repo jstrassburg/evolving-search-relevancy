@@ -16,6 +16,8 @@ from SearchParameter import SearchParameter
 
 
 class CandidateSolution:
+    size = 8
+
     def __init__(self, bits=None):
         if bits is None:
             self.name_boost = SearchParameter()
@@ -32,10 +34,5 @@ class CandidateSolution:
         self.description_boost = SearchParameter(tuple(bits[4:8]))
 
     @staticmethod
-    def random():
-        """
-        Returns a random list of bits in the correct length to be used a a candidate solution
-        """
-        name_boost = list(SearchParameter.random_bits())
-        description_boost = list(SearchParameter.random_bits())
-        return name_boost + description_boost
+    def evaluate(bits):
+        return sum(bits),

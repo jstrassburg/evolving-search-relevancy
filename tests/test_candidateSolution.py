@@ -27,10 +27,3 @@ class TestCandidateSolution(TestCase):
         expected_description_boost = .2
         self.assertEqual(actual.name_boost.value, expected_name_boost, "Name boost was incorrect")
         self.assertEqual(actual.description_boost.value, expected_description_boost, "Description boost was incorrect")
-
-    def test_random(self):
-        actual = CandidateSolution.random()
-        expected_length = 8
-        self.assertIs(len(actual), expected_length, "Expected 8 values")
-        for bit in actual:
-            self.assertIn(bit, [0, 1], "Expected only binary values")

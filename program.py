@@ -13,6 +13,7 @@
 #   limitations under the License.
 import random
 from deap import creator, base, tools, algorithms
+from CandidateSolution import CandidateSolution
 
 
 def evalonemax(individual):
@@ -30,10 +31,10 @@ class Program:
 
         toolbox = base.Toolbox()
         toolbox.register("attr_bool", random.randint, 0, 1)
-        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
+        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, CandidateSolution.size)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-        toolbox.register("evaluate", evalonemax)
+        toolbox.register("evaluate", CandidateSolution.evaluate)
         toolbox.register("mate", tools.cxTwoPoint)
         toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         toolbox.register("select", tools.selTournament, tournsize=3)
@@ -41,7 +42,7 @@ class Program:
         population = toolbox.population(n=300)
 
         hof = tools.HallOfFame(maxsize=1)
-        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=100, halloffame=hof)
+        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=40, halloffame=hof)
 
         print final_population
         print hof
