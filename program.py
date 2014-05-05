@@ -16,10 +16,6 @@ from deap import creator, base, tools, algorithms
 from CandidateSolution import CandidateSolution
 
 
-def evalonemax(individual):
-    return sum(individual),
-
-
 class Program:
     def __init__(self):
         pass
