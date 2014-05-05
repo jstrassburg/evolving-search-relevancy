@@ -45,6 +45,9 @@ class Program:
         print hof[0]
         print hof[0].fitness
 
+        best_solution = CandidateSolution(hof[0])
+        print "Best solution: name_boost = {0}, description_boost = {0}".format(
+            best_solution.name_boost.value, best_solution.description_boost.value)
 
 if __name__ == "__main__":
     Program.main()
