@@ -20,3 +20,8 @@ class TestSolrRepository(TestCase):
         self.assertEqual(len(results), 1, "Expected one result")
         result = list(results)[0]
         self.assertEqual(result["name"], "Joe's Crab Shack")
+
+    def test_interactive_queries(self):
+        expected = ["red lobster", "crabs", "seafood", "lobster", "red rock", "bbq"]
+        results = SolrRepository.interactive_queries()
+        self.assertItemsEqual(results, expected)

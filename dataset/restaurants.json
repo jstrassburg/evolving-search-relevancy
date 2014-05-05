@@ -5,7 +5,7 @@
     "id": "LOB",
     "name": "Red Lobster",
     "description": "We deliver the freshest caught seafood every day.",
-    "searchTermInteractions": [ "red lobster|25", "lobster|10", "seafood|10" ]
+    "searchTermInteractions": [ "red lobster", "lobster", "seafood" ]
   }
 },
 "add": {
@@ -13,7 +13,7 @@
     "id": "JOE",
     "name": "Joe's Crab Shack",
     "description": "We serve delicious red crabs, rock crabs, large lobsters, and other delicious seafood. Our lobsters are our specialty.",
-    "searchTermInteractions": [ "crabs|50", "seafood|200" ]
+    "searchTermInteractions": [ "crabs", "seafood" ]
   }
 },
 "add": {
@@ -21,7 +21,7 @@
     "id": "RED",
     "name": "Red Rock Saloon",
     "description": "Downtown Milwaukee's home for Award-Winning BBQ. We don't serve lobsters! Not even BBQ lobster.",
-    "searchTermInteractions": [ "red rock|15", "bbq|125" ]
+    "searchTermInteractions": [ "red rock", "bbq" ]
   }
 }
 }

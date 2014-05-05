@@ -13,6 +13,7 @@
 #   limitations under the License.
 import random
 from SearchParameter import SearchParameter
+from SolrRepository import SolrRepository
 
 
 class CandidateSolution:
@@ -35,6 +36,7 @@ class CandidateSolution:
 
     @staticmethod
     def evaluate(bits):
+        candidate = CandidateSolution(bits)
         return sum(bits),
 
     @staticmethod

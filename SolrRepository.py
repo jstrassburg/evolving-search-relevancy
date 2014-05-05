@@ -12,9 +12,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 import solr
+import sys
 
 
 class SolrRepository:
+    rows = sys.maxint
     solr_connection = solr.SolrConnection('http://localhost:8983/solr/restaurantsCollection')
 
     def __init__(self):
@@ -23,4 +25,13 @@ class SolrRepository:
     @staticmethod
     def search(q, name_boost, description_boost):
         qf = "name^{0} description^{1}".format(name_boost, description_boost)
-        return SolrRepository.solr_connection.query(q, start=0, rows=100, qf=qf, defType="dismax")
+        return SolrRepository.solr_connection.query(q, rows=SolrRepository.rows, qf=qf, defType="dismax", q_alt="*:*")
+
+    @staticmethod
+    def interactive_queries():
+        results = SolrRepository.solr_connection.query("*:*", rows=SolrRepository.rows, fl="searchTermInteractions")
+        queries = set()
+        for result in results:
+            for term in result["searchTermInteractions"]:
+                queries.add(term)
+        return queries
