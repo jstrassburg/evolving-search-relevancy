@@ -16,10 +16,26 @@ from SearchParameter import SearchParameter
 
 
 class CandidateSolution:
-    def __init__(self):
-        self.name_boost = SearchParameter()
-        self.description_boost = SearchParameter()
+    def __init__(self, bits=None):
+        if bits is None:
+            self.name_boost = SearchParameter()
+            self.description_boost = SearchParameter()
+        else:
+            self.decode(bits)
 
     def decode(self, bits):
-        self.name_boost = SearchParameter(bits[0:4])
-        self.description_boost = SearchParameter(bits[4:4])
+        """
+        decodes a list of bits into this instance
+        :param bits: A list of 0/1 to be sliced into the individual parameters
+        """
+        self.name_boost = SearchParameter(tuple(bits[0:4]))
+        self.description_boost = SearchParameter(tuple(bits[4:8]))
+
+    @staticmethod
+    def random():
+        """
+        Returns a random list of bits in the correct length to be used a a candidate solution
+        """
+        name_boost = list(SearchParameter.random_bits())
+        description_boost = list(SearchParameter.random_bits())
+        return name_boost + description_boost
