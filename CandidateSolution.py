@@ -36,8 +36,18 @@ class CandidateSolution:
 
     @staticmethod
     def evaluate(bits):
+        """
+        Calculates an average of the F-Measure for every query that has recorded interactions
+        """
         candidate = CandidateSolution(bits)
-        return sum(bits),
+        f_measures = []
+        #for query in SolrRepository.interactive_queries():
+        for query in ["red lobster"]:
+            results = SolrRepository.search(query, candidate.name_boost.value, candidate.description_boost.value)
+            precision = CandidateSolution.calculate_precision(query, results)
+            recall = CandidateSolution.calculate_recall(query, results)
+            f_measures.append(CandidateSolution.f_measure(precision, recall))
+        return sum(f_measures) / len(f_measures),
 
     @staticmethod
     def f_measure(precision, recall):
@@ -45,3 +55,22 @@ class CandidateSolution:
             return 0
         return 2.0 * float(precision * recall) / float(precision + recall)
 
+    @staticmethod
+    def calculate_precision(query, results):
+        total_results = float(results.numFound)
+        return CandidateSolution.correct_matches(query, results) / total_results
+
+    @staticmethod
+    def calculate_recall(query, results):
+        correct_matches = CandidateSolution.correct_matches(query, results)
+        total_matches = float(SolrRepository.total_matches(query))
+        missed_matches = total_matches - correct_matches
+        return correct_matches / (correct_matches + missed_matches)
+
+    @staticmethod
+    def correct_matches(query, results):
+        correct_matches = 0.
+        for result in results:
+            if query in result["searchTermInteractions"]:
+                correct_matches += 1.
+        return correct_matches

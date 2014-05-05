@@ -25,3 +25,8 @@ class TestSolrRepository(TestCase):
         expected = ["red lobster", "crabs", "seafood", "lobster", "red rock", "bbq"]
         results = SolrRepository.interactive_queries()
         self.assertItemsEqual(results, expected)
+
+    def test_total_matches(self):
+        expected = 2
+        actual = SolrRepository.total_matches("seafood")
+        self.assertEqual(actual, expected)

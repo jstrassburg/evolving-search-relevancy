@@ -38,7 +38,7 @@ class Program:
         population = toolbox.population(n=300)
 
         hof = tools.HallOfFame(maxsize=1)
-        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=40, halloffame=hof)
+        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=50, halloffame=hof)
 
         print final_population
         print hof

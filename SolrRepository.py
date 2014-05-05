@@ -35,3 +35,9 @@ class SolrRepository:
             for term in result["searchTermInteractions"]:
                 queries.add(term)
         return queries
+
+    @staticmethod
+    def total_matches(query):
+        results = SolrRepository.solr_connection.query(
+            "searchTermInteractions:{0}".format(query), rows=SolrRepository.rows)
+        return results.numFound
