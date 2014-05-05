@@ -27,3 +27,14 @@ class TestCandidateSolution(TestCase):
         expected_description_boost = .2
         self.assertEqual(actual.name_boost.value, expected_name_boost, "Name boost was incorrect")
         self.assertEqual(actual.description_boost.value, expected_description_boost, "Description boost was incorrect")
+
+    def test_f_measure_zeros(self):
+        actual = CandidateSolution.f_measure(0, 0)
+        self.assertEqual(actual, 0)
+
+    def test_f_measure(self):
+        precision = 10
+        recall = 20
+        expected = 2. * 200. / 30.
+        actual = CandidateSolution.f_measure(precision, recall)
+        self.assertEqual(actual, expected)

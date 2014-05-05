@@ -36,3 +36,10 @@ class CandidateSolution:
     @staticmethod
     def evaluate(bits):
         return sum(bits),
+
+    @staticmethod
+    def f_measure(precision, recall):
+        if (precision + recall) == 0:
+            return 0
+        return 2.0 * float(precision * recall) / float(precision + recall)
+
