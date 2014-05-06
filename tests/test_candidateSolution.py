@@ -10,8 +10,10 @@
 #   distributed under the License is distributed on an "AS IS" BASIS,
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
+import math
 from unittest import TestCase
 from CandidateSolution import CandidateSolution
+from SolrRepository import SolrRepository
 
 
 class TestCandidateSolution(TestCase):
@@ -37,4 +39,18 @@ class TestCandidateSolution(TestCase):
         recall = 20
         expected = 2. * 200. / 30.
         actual = CandidateSolution.f_measure(precision, recall)
+        self.assertEqual(actual, expected)
+
+    def test_correct_matches(self):
+        query = "red lobster"
+        results = SolrRepository.search(query, 1, 1)
+        actual = CandidateSolution.correct_matches(query, results)
+        expected = 1
+        self.assertEqual(actual, expected)
+
+    def test_discounted_correct_matches(self):
+        query = "red lobster"
+        results = SolrRepository.search(query, 1, 1)
+        actual = CandidateSolution.discounted_correct_matches(query, results)
+        expected = 1. / math.log(3)
         self.assertEqual(actual, expected)

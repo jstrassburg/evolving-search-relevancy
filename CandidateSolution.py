@@ -11,7 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-import random
+import math
 from SearchParameter import SearchParameter
 from SolrRepository import SolrRepository
 
@@ -58,11 +58,11 @@ class CandidateSolution:
     @staticmethod
     def calculate_precision(query, results):
         total_results = float(results.numFound)
-        return CandidateSolution.correct_matches(query, results) / total_results
+        return CandidateSolution.discounted_correct_matches(query, results) / total_results
 
     @staticmethod
     def calculate_recall(query, results):
-        correct_matches = CandidateSolution.correct_matches(query, results)
+        correct_matches = CandidateSolution.discounted_correct_matches(query, results)
         total_matches = float(SolrRepository.total_matches(query))
         missed_matches = total_matches - correct_matches
         return correct_matches / (correct_matches + missed_matches)
@@ -74,3 +74,13 @@ class CandidateSolution:
             if query in result["searchTermInteractions"]:
                 correct_matches += 1.
         return correct_matches
+
+    @staticmethod
+    def discounted_correct_matches(query, results):
+        discounted_correct_matches = 0.
+        position = 2 # start at 2 because / math.log(2) will boost for the first result and discount following results
+        for result in results:
+            if query in result["searchTermInteractions"]:
+                discounted_correct_matches += 1. / math.log(position)
+            position += 1
+        return discounted_correct_matches

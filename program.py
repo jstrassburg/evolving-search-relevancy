@@ -35,18 +35,16 @@ class Program:
         toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         toolbox.register("select", tools.selTournament, tournsize=3)
 
-        population = toolbox.population(n=300)
+        population = toolbox.population(n=200)
 
         hof = tools.HallOfFame(maxsize=1)
-        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=50, halloffame=hof)
+        final_population = algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.1, ngen=10, halloffame=hof)
 
         print final_population
-        print hof
-        print hof[0]
-        print hof[0].fitness
+        print "Best solution: {0}, fitness: {1}".format(hof[0], hof[0].fitness)
 
         best_solution = CandidateSolution(hof[0])
-        print "Best solution: name_boost = {0}, description_boost = {0}".format(
+        print "Best solution: name_boost = {0}, description_boost = {1}".format(
             best_solution.name_boost.value, best_solution.description_boost.value)
 
 if __name__ == "__main__":
