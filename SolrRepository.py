@@ -12,11 +12,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 import solr
-import sys
 
 
 class SolrRepository:
-    rows = 2**31-1 #because sys.maxint can be too bit for Solr
+    rows = 2**31-1  # because sys.maxint can be too bit for Solr
     solr_connection = solr.SolrConnection('http://localhost:8983/solr/restaurantsCollection')
 
     def __init__(self):
