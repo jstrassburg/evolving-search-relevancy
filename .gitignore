@@ -11,7 +11,6 @@ env/
 bin/
 build/
 develop-eggs/
-dist/
 eggs/
 lib64/
 parts/
@@ -57,8 +56,8 @@ docs/_build/
 out/
 
 # Solr
-dependencies/solr-4.10.0/evolverInstance/logs/solr.log*
-dependencies/solr-4.10.0/evolverInstance/solr/restaurantsCollection/data/
+dependencies/solr*/evolverInstance/logs/solr.log*
+dependencies/solr*/evolverInstance/solr/restaurantsCollection/data/
 
 # Mac specific
 *.DS_Store
