@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ./dependencies/solr-4.7.2/evolverInstance
+cd ./dependencies/solr-4.10.0/evolverInstance
 java -jar start.jar
