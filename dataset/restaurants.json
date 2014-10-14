@@ -15,13 +15,5 @@
     "description": "We serve delicious red crabs, rock crabs, large lobsters, and other delicious seafood. Our lobsters are our specialty.",
     "searchTermInteractions": [ "crabs", "seafood" ]
   }
-},
-"add": {
-  "doc": {
-    "id": "RED",
-    "name": "Red Rock Saloon",
-    "description": "Downtown Milwaukee's home for Award-Winning BBQ. We don't serve lobsters! Not even BBQ lobster.",
-    "searchTermInteractions": [ "red rock", "bbq" ]
-  }
 }
 }
