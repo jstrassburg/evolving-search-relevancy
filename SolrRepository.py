@@ -23,7 +23,12 @@ class SolrRepository:
 
     @staticmethod
     def search(q, name_boost, description_boost):
-        qf = "name^{0} description^{1}".format(name_boost, description_boost)
+        qf = ""
+        if name_boost > 0:
+            qf += "name^{0} ".format(name_boost)
+        if description_boost > 0:
+            qf += "description^{0}".format(description_boost)
+
         return SolrRepository.solr_connection.query(q, rows=SolrRepository.rows, qf=qf, defType="dismax", q_alt="*:*")
 
     @staticmethod

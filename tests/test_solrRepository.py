@@ -21,6 +21,18 @@ class TestSolrRepository(TestCase):
         result = list(results)[0]
         self.assertEqual(result["name"], "Joe's Crab Shack")
 
+    def test_search_zero_boost_name(self):
+        results = SolrRepository.search("red", 0, 2)
+        self.assertEqual(len(results), 1)
+        result = list(results)[0]
+        self.assertEqual(result["name"], "Joe's Crab Shack")
+
+    def test_search_zero_boost_description(self):
+        results = SolrRepository.search("red", 2, 0)
+        self.assertEqual(len(results), 1)
+        result = list(results)[0]
+        self.assertEqual(result["name"], "Red Lobster")
+
     def test_interactive_queries(self):
         expected = ["red lobster", "crabs", "seafood", "lobster"]
         results = SolrRepository.interactive_queries()
