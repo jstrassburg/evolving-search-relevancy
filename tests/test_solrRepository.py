@@ -22,7 +22,7 @@ class TestSolrRepository(TestCase):
         self.assertEqual(result["name"], "Joe's Crab Shack")
 
     def test_interactive_queries(self):
-        expected = ["red lobster", "crabs", "seafood", "lobster", "red rock", "bbq"]
+        expected = ["red lobster", "crabs", "seafood", "lobster"]
         results = SolrRepository.interactive_queries()
         self.assertItemsEqual(results, expected)
 
